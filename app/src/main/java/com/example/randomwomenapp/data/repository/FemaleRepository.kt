@@ -17,7 +17,8 @@ class FemaleRepository @Inject constructor(
         try {
             emit(Resource.Loading())
             val randomSeed = UUID.randomUUID().toString()
-            val females = api.getRandomUsers("female", 3, 10, randomSeed)
+            val response = api.getRandomUsers("female", 3, 10, randomSeed)
+            val females = response.results
             emit(Resource.Success(females))
         } catch (e: HttpException) {
             emit(Resource.Error(e.message ?: "Error HTTP GENERAL"))
